@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modificar Jugador</title>
+    <style>
+        body {
+            background-color: #000000; /* Negro */
+            color: #ffffff; /* Blanco */
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #d29dc8; /* Fucsia */
+            text-align: center; /* Alineación al centro */
+        }
+
+        form {
+            width: 50%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #d29dc8; /* Fucsia */
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            color: #ffffff; /* Blanco */
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        input[type="submit"] {
+            background-color: #000000; /* Negro */
+            color: #d29dc8; /* Fucsia */
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto; /* Centrar horizontalmente */
+            margin-top: 20px; /* Espacio superior */
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            color: #d29dc8; /* Fucsia */
+            text-decoration: none;
+            text-align: center; /* Alineación al centro */
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Modificar Jugador</h1>
+    <form method="POST">
+        <table>
+            {% for field in formulario %}
+                <tr>
+                    <th>{{ field.label_tag }}</th>
+                    <td>{{ field }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Grabar">
+        {% csrf_token %}
+    </form>
+    <a href="{% url 'jugadores' %}">Regresar</a>
+</body>
+</html>
+

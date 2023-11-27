@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>JUGADORES</title>
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .header {
+            background-color: #d29dc8; /* Rosa pastel */
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .table-info th {
+            background-color: #b7a4cb; /* Lila pastel */
+        }
+
+        .btn-group a {
+            margin-right: 5px;
+        }
+
+        .btn-outline-info {
+            color: #007bff; /* Azul */
+            border-color: #007bff; /* Azul */
+        }
+
+        .btn-outline-info:hover {
+            color: #ffffff; /* Blanco */
+            background-color: #007bff; /* Azul */
+        }
+
+        .btn-outline-success {
+            color: #28a745; /* Verde */
+            border-color: #28a745; /* Verde */
+        }
+
+        .btn-outline-success:hover {
+            color: #ffffff; /* Blanco */
+            background-color: #28a745; /* Verde */
+        }
+
+        .btn-outline-danger {
+            color: #dc3545; /* Rojo */
+            border-color: #dc3545; /* Rojo */
+        }
+
+        .btn-outline-danger:hover {
+            color: #ffffff; /* Blanco */
+            background-color: #dc3545; /* Rojo */
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>¡Bienvenido a la Lista de Jugadores!</h1>
+        <h2>Administración de Jugadores</h2>
+        <h3>Cantidad de jugadores: {{cantidad_jugadores }}</h3>
+        <a href="/agregar_jugador/" class="btn btn-primary">Agregar Jugador</a>
+    </div>
+
+    <div class="container">
+        <table class="table table-hover table-striped border-primary table-sm text-center">
+            <thead class="table-info">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Sexo</th>
+                    <th scope="col">Juego preferido</th>
+                    <th scope="col">Plataforma Preferida</th>
+                    <th scope="col">Modo Preferido</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for jugador in jugadores %}
+                    <tr>
+                        <td>{{ jugador.nombre }}</td>
+                        <td>{{ jugador.sexo }}</td>
+                        <td>{{ jugador.juego_preferido.nombre }}</td>
+                        <td>{{ jugador.plataforma_preferida.nombre }}</td>
+                        <td>{{ jugador.modos_preferidos.nombre }}</td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="/ver_jugador/{{ jugador.id }}/" class="btn btn-outline-info">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="/modificar_jugador/{{ jugador.id }}/" class="btn btn-outline-success">
+                                    <i class="fas fa-check"></i>
+                                </a>
+                                <a href="/eliminar_jugador/{{ jugador.id }}/" class="btn btn-outline-danger">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
