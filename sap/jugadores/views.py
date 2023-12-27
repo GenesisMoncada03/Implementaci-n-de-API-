@@ -3,9 +3,13 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.template import loader
 from openpyxl import Workbook
+from rest_framework import viewsets, permissions
 
 from jugadores.forms import JugadorFormulario
-from jugadores.models import Jugador
+from jugadores.models import Jugador, Plataforma, Modo, GeneroJuego, Juego
+from jugadores.serializers import JugadorSerializer, PlataformaSerializer, ModoSerializer, GeneroJuegoSerializer, \
+    JuegoSerializer
+
 
 # Vista para agregar un jugador
 def agregar_jugador(request):
@@ -81,3 +85,43 @@ def generar_reporte_jugadores(request, *args, **kwargs):
     response["Content-Disposition"] = contenido
     wb.save(response)
     return response
+
+
+class JugadorViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Jugador.objects.all().order_by('-nombre')
+    serializer_class = JugadorSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class  JuegoViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Juego.objects.all()
+    serializer_class =  JuegoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+class PlataformaViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Plataforma.objects.all()
+    serializer_class = PlataformaSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class ModoViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Modo.objects.all()
+    serializer_class = ModoSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class GeneroJuegoViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = GeneroJuego.objects.all()
+    serializer_class = GeneroJuegoSerializer
+    permission_classes = [permissions.IsAuthenticated]

@@ -15,12 +15,24 @@ Including another URLconf
 
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
+
 from webapp.views import jugadores
-from jugadores.views import agregar_jugador, modificar_jugador, ver_jugador, eliminar_jugador, generar_reporte_jugadores
+from jugadores.views import agregar_jugador, modificar_jugador, ver_jugador, eliminar_jugador, \
+    generar_reporte_jugadores, JugadorViewSet, PlataformaViewSet, JuegoViewSet, ModoViewSet, GeneroJuegoViewSet
+
+router = routers.DefaultRouter()
+router.register(r'jugador', JugadorViewSet)
+router.register(r'juego', JuegoViewSet)
+router.register(r'plataforma', PlataformaViewSet)
+router.register(r'modo', ModoViewSet)
+router.register(r'genero', GeneroJuegoViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', jugadores, name='jugadores'),
     path('agregar_jugador/', agregar_jugador, name='agregar_jugador'),
     path('modificar_jugador/<int:jugador_id>/', modificar_jugador, name='modificar_jugador'),
